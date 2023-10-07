@@ -1,6 +1,8 @@
 export type Serializer = {
-  serialize: (data: string) => SerializedData;
-};
+  serialize: SerializeFunc,
+}
+
+export type SerializeFunc = (data: string) => SerializedData;
 
 export type SerializedData = {
   raw: string;
@@ -11,3 +13,4 @@ export enum SerializerType {
   JSON,
   RAW,
 }
+
