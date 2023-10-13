@@ -1,14 +1,14 @@
 # Dynamic Config Listener
 
-`dynamic-config-listener` is a versatile Node.js library designed to streamline the process of monitoring changes 
+`dynamic-config-listener` is a Node.js library designed to streamline the process of monitoring changes 
 in configuration files within the file system. Through the use of an `onChange` callback, users can receive instantaneous 
-notifications whenever alterations are made to the configuration. 
+notifications whenever alterations are made to the configuration. Then, it serialized the up-to-date config to specified 
+serialization type. 
 
-Moreover, for situations where direct callback 
-listening might not be preferable, the library offers a `readData` feature that allows for seamless retrieval of the most 
-up-to-date configuration with optimal performance. This dual functionality ensures that users have the flexibility to 
-choose the method that best suits their specific needs, enhancing the overall adaptability and efficiency of the 
-library.
+Moreover, for situations where direct callback listening might not be preferable, the library offers a `readData` 
+feature that allows for seamless retrieval of the most up-to-date configuration with optimal performance. 
+This dual functionality ensures that users have the flexibility to choose the method that best suits their specific 
+needs, enhancing the overall adaptability and efficiency of the library.
 
 ## Installation
 
@@ -37,7 +37,7 @@ const configListener = ListenerBuilder.builder('path/to/config.json')
 
 // Read the most-up-to-date data and start listening for config changes. 
 // Retriggering of this method won't effect the performance since it use previous listener if exist
-const data = configListener.readData();
+const data = await configListener.readData();
 
 // To stop listening of config changes
 configListener.stop();
