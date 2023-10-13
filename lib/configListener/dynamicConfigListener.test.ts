@@ -9,8 +9,8 @@ import * as fileSystem from '../helper/fileSystem/fileUtil';
 jest.mock('../helper/fileSystem/fileSystemListener', () => {
     return {
         FileSystemListener: jest.fn().mockImplementation(() => ({
-            watch: jest.fn(),
-            unWatch: jest.fn(),
+            start: jest.fn(),
+            stop: jest.fn(),
         })),
     };
 });
@@ -60,7 +60,7 @@ describe('DynamicConfigListener', () => {
         dynamicConfigListener.dynamicConfig = dynamicConfig;
 
         // When
-        const result = await dynamicConfigListener.getDynamicConfig();
+        const result = await dynamicConfigListener.readData();
 
         // Then
         expect(result).toBe(dynamicConfig);
@@ -75,20 +75,20 @@ describe('DynamicConfigListener', () => {
         jest.spyOn(fileSystem, "readFile").mockReturnValue(Promise.resolve(mockReadFileData));
 
         // When
-        const result = await dynamicConfigListener.getDynamicConfig();
+        const result = await dynamicConfigListener.readData();
 
         // Then
         expect(result).toBe(mockSerializedData);
         expect(dynamicConfigListener.serialize).toHaveBeenCalledWith(mockReadFileData);
-        expect(dynamicConfigListener.listener.watch).toHaveBeenCalledWith(config.file);
+        expect(dynamicConfigListener.listener.start).toHaveBeenCalledWith(config.file);
     });
 
     it('should unwatch listener', async () => {
         // When
-        dynamicConfigListener.unWatch();
+        dynamicConfigListener.stop();
 
         // Then
-        expect(dynamicConfigListener.listener.unWatch).toHaveBeenCalledWith(config.file);
+        expect(dynamicConfigListener.listener.stop).toHaveBeenCalledWith(config.file);
     });
 
     it('should handle on file change', async () => {

@@ -7,13 +7,13 @@ import { getAbsoluteFilePath } from "./helper/fileSystem/fileUtil";
 export default class ListenerBuilder {
     private readonly configOptions: DynamicConfigOptions;
 
-    constructor(file: string, onChange: (newConfig: object) => void) {
+    constructor(file: string) {
         this.configOptions = {
             file,
-            onChange,
             pathType: FilePathType.RELATIVE,
             encoding: 'utf-8',
             serialization: SerializerType.JSON,
+            onChange: () => {},
             onError: () => {},
         };
     }

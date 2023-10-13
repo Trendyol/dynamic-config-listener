@@ -9,7 +9,7 @@ export class FileSystemListener {
     this.isListening = false;
   }
 
-  watch(filePath: string) {
+  start(filePath: string) {
     if (this.isListening) {
       return;
     }
@@ -18,7 +18,7 @@ export class FileSystemListener {
     this.isListening = true;
   }
 
-  unWatch(filePath: string) {
+  stop(filePath: string) {
     if (!this.isListening) {
       return;
     }

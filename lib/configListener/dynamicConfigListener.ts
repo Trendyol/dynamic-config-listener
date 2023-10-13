@@ -16,21 +16,21 @@ export default class DynamicConfigListener {
     this.serialize = serializers[this.config.serialization].serialize;
   }
 
-  public async getDynamicConfig() {
+  public async readData(): Promise<SerializedData> {
     if (this.dynamicConfig) {
       return this.dynamicConfig;
     }
 
     const readData = await readFile(this.config.file);
     const firstConfigData = this.serialize(readData);
-    this.listener.watch(this.config.file);
+    this.listener.start(this.config.file);
 
     this.dynamicConfig = firstConfigData;
     return this.dynamicConfig;
   }
 
-  public unWatch() {
-    this.listener.unWatch(this.config.file);
+  public stop() {
+    this.listener.stop(this.config.file);
     this.dynamicConfig = undefined;
   }
 

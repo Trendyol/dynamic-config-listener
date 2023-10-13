@@ -7,24 +7,22 @@ jest.mock('./configListener/dynamicConfigListener');
 
 describe('ListenerBuilder', () => {
     it('should build a DynamicConfigListener with default options', () => {
-        const onChange = jest.fn();
-        const builder = new ListenerBuilder('config.json', onChange);
+        const builder = new ListenerBuilder('config.json');
         const listener = builder.build();
 
         expect(DynamicConfigListener).toHaveBeenCalledWith({
             file: 'config.json',
-            onChange: expect.any(Function),
             pathType: FilePathType.RELATIVE,
             encoding: 'utf-8',
             serialization: SerializerType.JSON,
+            onChange: expect.any(Function),
             onError: expect.any(Function),
         });
         expect(listener).toBeInstanceOf(DynamicConfigListener);
     });
 
     it('should build a DynamicConfigListener with custom options', () => {
-        const onChange = jest.fn();
-        const builder = new ListenerBuilder('config.json', onChange)
+        const builder = new ListenerBuilder('config.json')
             .setPathType(FilePathType.ABSOLUTE)
             .setEncoding('base64')
             .setSerialization(SerializerType.RAW)
@@ -34,10 +32,10 @@ describe('ListenerBuilder', () => {
 
         expect(DynamicConfigListener).toHaveBeenCalledWith({
             file: expect.any(String),
-            onChange: expect.any(Function),
             pathType: FilePathType.ABSOLUTE,
             encoding: 'base64',
             serialization: SerializerType.RAW,
+            onChange: expect.any(Function),
             onError: expect.any(Function),
         });
         expect(listener).toBeInstanceOf(DynamicConfigListener);
