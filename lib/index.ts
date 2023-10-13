@@ -7,7 +7,7 @@ import { getAbsoluteFilePath } from "./helper/fileSystem/fileUtil";
 export default class ListenerBuilder {
     private readonly configOptions: DynamicConfigOptions;
 
-    constructor(file: string) {
+    private constructor(file: string) {
         this.configOptions = {
             file,
             pathType: FilePathType.RELATIVE,
@@ -16,6 +16,10 @@ export default class ListenerBuilder {
             onChange: () => {},
             onError: () => {},
         };
+    }
+
+    public static builder(file: string): ListenerBuilder {
+        return new ListenerBuilder(file);
     }
 
     setPathType(pathType: FilePathType): this {
@@ -44,3 +48,5 @@ export default class ListenerBuilder {
         return new DynamicConfigListener(this.configOptions);
     }
 }
+
+export * from './index.types';
