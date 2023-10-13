@@ -9,3 +9,6 @@ export interface DynamicConfigOptions {
     onChange: (newConfig: object) => void;
     onError: (e: Error, previousConfig: SerializedData | undefined) => void;
 }
+
+export * from './helper/fileSystem/fileSystem.types';
+export * from './helper/serialization/serialization.types';

@@ -7,7 +7,7 @@ jest.mock('./configListener/dynamicConfigListener');
 
 describe('ListenerBuilder', () => {
     it('should build a DynamicConfigListener with default options', () => {
-        const builder = new ListenerBuilder('config.json');
+        const builder = ListenerBuilder.builder('config.json');
         const listener = builder.build();
 
         expect(DynamicConfigListener).toHaveBeenCalledWith({
@@ -22,7 +22,7 @@ describe('ListenerBuilder', () => {
     });
 
     it('should build a DynamicConfigListener with custom options', () => {
-        const builder = new ListenerBuilder('config.json')
+        const builder = ListenerBuilder.builder('config.json')
             .setPathType(FilePathType.ABSOLUTE)
             .setEncoding('base64')
             .setSerialization(SerializerType.RAW)
