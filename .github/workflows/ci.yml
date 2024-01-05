@@ -22,7 +22,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [16.x]
 
     steps:
     - uses: actions/checkout@v2
@@ -46,3 +46,7 @@ jobs:
       - name: Update Version
         run: |
           npm version ${{ github.event.inputs.versionType }} -m "Upgrade to %s"
+      - name: Publish to npm
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}      
