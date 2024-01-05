@@ -1,0 +1,42 @@
+name: Update Version and Publish to npm
+
+on:
+  workflow_dispatch:
+    inputs:
+      versionType:
+        type: choice
+        description: Version type to increment (patch, minor, major)
+        options:
+          - patch
+          - minor
+          - major
+        required: true
+
+jobs:
+  version-update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16.x'
+      - name: Git Config
+        run: |
+          git config --global user.name "ci-pipeline"
+          git config --global user.email "ci-pipeline@admin.com"
+      - name: Update Version
+        run: npm version ${{ github.event.inputs.versionType }} -m "Upgrade to %s"
+      - name: Push Changes
+        run: |
+          git push origin main --follow-tags
+      - name: Publish to npm
+        id: publish
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Revert Commit if Publish Fails
+        if: ${{ steps.publish.outcome == 'failure' }}
+        run: |
+          git revert HEAD --no-edit
+          git push origin HEAD:main
