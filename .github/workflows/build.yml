@@ -1,7 +1,9 @@
-name: Build and Publish
+name: Node.js Build, Versioning and Publish to npm
 
 on:
   push:
+    branches: [ main ]
+  pull_request:
     branches: [ main ]
   workflow_dispatch:
     inputs:
@@ -20,7 +22,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [16.x]
 
     steps:
     - uses: actions/checkout@v2
@@ -33,6 +35,8 @@ jobs:
     - run: npm test
   version-update:
     runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'workflow_dispatch' }}
+    needs: build
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js
@@ -44,12 +48,12 @@ jobs:
           git config --global user.name "ci-pipeline"
           git config --global user.email "ci-pipeline@admin.com"
       - name: Update Version
-        run: npm version ${{ github.event.inputs.versionType }} -m "Upgrade to %s"
+        run: |
+          npm version ${{ github.event.inputs.versionType }} -m "Upgrade to %s"
       - name: Publish to npm
-        id: publish
         run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}   
       - name: Push Changes
         run: |
           git push origin main
