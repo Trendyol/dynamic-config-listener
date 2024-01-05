@@ -46,6 +46,11 @@ jobs:
       - name: Update Version
         run: |
           npm version ${{ github.event.inputs.versionType }} -m "Upgrade to %s"
+      - name: Push Changes
+        run: |
+          git config --global user.name "ci-pipeline"
+          git config --global user.email "ci-pipeline@admin.com"
+          git push origin main
       - name: Publish to npm
         run: npm publish
         env:
