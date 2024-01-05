@@ -22,7 +22,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "jest",
+    "test": "jest lib/",
     "publish": "npm publish",
     "prepublish": "npm run build",
     "lint": "eslint --ext .js,.ts .",
