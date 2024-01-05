@@ -1,9 +1,7 @@
-name: Build
+name: Build and Publish
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
     branches: [ main ]
   workflow_dispatch:
     inputs:
@@ -47,16 +45,11 @@ jobs:
           git config --global user.email "ci-pipeline@admin.com"
       - name: Update Version
         run: npm version ${{ github.event.inputs.versionType }} -m "Upgrade to %s"
-      - name: Push Changes
-        run: |
-          git push origin main --follow-tags
       - name: Publish to npm
         id: publish
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Revert Commit if Publish Fails
-        if: ${{ steps.publish.outcome == 'failure' }}
+      - name: Push Changes
         run: |
-          git revert HEAD --no-edit
-          git push origin HEAD:main
+          git push origin main
