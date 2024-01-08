@@ -35,6 +35,7 @@ jobs:
     - run: npm test
   version-update:
     runs-on: ubuntu-latest
+    permissions: write-all
     if: ${{ github.event_name == 'workflow_dispatch' }}
     needs: build
     steps:
