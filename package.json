@@ -1,6 +1,6 @@
 {
   "name": "dynamic-config-listener",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Dynamic Config Listener",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -11,10 +11,10 @@
   "files": [
     "dist/"
   ],
-  "homepage": "https://github.com/BahadirYurdakul/dynamic-config-listener",
-  "repository": "github:BahadirYurdakul/dynamic-config-listener",
+  "homepage": "https://github.com/Trendyol/dynamic-config-listener",
+  "repository": "github:Trendyol/dynamic-config-listener",
   "bugs": {
-    "url": "https://github.com/BahadirYurdakul/dynamic-config-listener/issues"
+    "url": "https://github.com/Trendyol/dynamic-config-listener/issues"
   },
   "author": {
     "name": "Bahadır Yurdakul",
