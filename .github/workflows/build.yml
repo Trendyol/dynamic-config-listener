@@ -44,10 +44,11 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16.x'
+          token: ${{ secrets.SECRET_TOKEN }}
       - name: Git Config
         run: |
-          git config --global user.name "ci-pipeline"
-          git config --global user.email "ci-pipeline@admin.com"
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
       - name: Update Version
         run: |
           npm version ${{ github.event.inputs.versionType }} -m "Upgrade to %s"
