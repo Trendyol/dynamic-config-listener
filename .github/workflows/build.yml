@@ -54,6 +54,7 @@ jobs:
           npm version ${{ github.event.inputs.versionType }} -m "Upgrade to %s"
       - name: Push Changes
         run: |
+          git pull origin main
           git push origin main
   npm-publish:
     runs-on: ubuntu-latest
