@@ -1,3 +1,5 @@
+
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/Trendyol/dynamic-config-listener/badge)](https://scorecard.dev/viewer/?uri=github.com/Trendyol/dynamic-config-listener)
 # Dynamic Config Listener
 
 `dynamic-config-listener` is a Node.js library designed to streamline the process of monitoring changes 
